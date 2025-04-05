@@ -6,22 +6,25 @@ import { deleteTaskList, getTaskListById, updateTaskList } from "@/lib/localStor
 import { NextResponse } from "next/server";
 
 // IDを指定してタスクリストを取得
-export async function GET(req: Request, { params }: { params: { id: string } }) {
-	const list = await getTaskListById(params.id);
+export async function GET(req: Request, context: { params: { id: string } }) {
+	const { id } = context.params;
+	const list = await getTaskListById(id);
 	if (!list) return NextResponse.json({ error: 'タスクリストの取得に失敗' }, { status: 404 });
 	return NextResponse.json(list);
 }
 
 // IDを指定してタスクリストを編集
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, context: { params: { id: string } }) {
+	const { id } = context.params;
 	const updatedList = await req.json();	// 更新対象のタスクリスト
-	const result = await updateTaskList(params.id, updatedList);
+	const result = await updateTaskList(id, updatedList);
 	if (!result) return NextResponse.json({ error: 'タスクリストの更新に失敗' }, { status: 404 });
 	return NextResponse.json(result);
 }
 
 // IDを指定してタスクリストを削除
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-	await deleteTaskList(params.id);
+export async function DELETE(req: Request, context: { params: { id: string } }) {
+	const { id } = context.params;
+	await deleteTaskList(id);
 	return NextResponse.json({ message: 'deleted' }, { status: 200 });
 }
