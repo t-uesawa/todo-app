@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
+import { Providers } from "./Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,34 +19,35 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  console.log(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
   return (
-    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
-      <html lang="ja">
-        <head>
-          {/* <meta charset="UTF-8" /> */}
-          {/* <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <html lang="ja">
+      <head>
+        {/* <meta charset="UTF-8" /> */}
+        {/* <link rel="icon" type="image/svg+xml" href="/vite.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" /> */}
-          <title>TODO</title>
+        <title>TODO</title>
 
-          {/* <meta name="apple-mobile-web-app-capable" content="yes" />
+        {/* <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="TODO" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
         <link rel="apple-touch-icon" href="apple-touch-icon.png" /> */}
-          {/* <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" /> */}
-          <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        {/* <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" /> */}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
-        </head>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
+      </head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <Providers>
           <div className='w-full'>
             <main className='h-full'>
               {children}
             </main>
           </div>
-        </body>
-      </html>
-    </ClerkProvider>
+        </Providers>
+      </body>
+    </html>
   );
 }
