@@ -1,0 +1,14 @@
+/* Masonryのモジュール */
+
+.masonryGrid {
+	display: flex;
+	margin-left: -8px;
+	/* 左余白調整 */
+	width: auto;
+}
+
+.masonryGridColumn {
+	padding-left: 8px;
+	/* カラムの余白 */
+	background-clip: padding-box;
+}
