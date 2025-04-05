@@ -21,7 +21,7 @@ export default function TaskDetailPage() {
 
 	const { id } = useParams();
 	const { taskLists, refreshTaskLists } = useTaskLists();
-	const { toggleMenu, selectedTaskListId, setSelectedTaskListId } = useMenu();
+	const { toggleMenu } = useMenu();
 	const taskList = taskLists.find(list => list.id === id);
 
 	// 実行日
